@@ -1,7 +1,17 @@
+import { useState } from "react";
+import Banner from "../components/Banner";
+
 const Home = () => {
+    const [query, setQuery] = useState("");
+    const handleInputChange = (event) => {
+        setQuery(event.target.value)
+    }
+    console.log(query);
     return (
-        <div>Home Page</div>
+        <div>
+            <Banner query = {query} handleInputChange = {handleInputChange}/>
+        </div>
     )
 }
 
-export default Home;
+export default Home
