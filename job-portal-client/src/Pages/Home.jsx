@@ -74,7 +74,7 @@ const Home = () => {
             employmentType, postingDate}) => (
                 jobLocation.toLowerCase() === selected.toLowerCase() ||
                 parseInt(maxPrice) <= parseInt(selected) ||
-                experienceLevel >= selected ||
+                experienceLevel.toLowerCase() >= selected.toLowerCase() ||
                 salaryType.toLowerCase() === selected.toLowerCase() ||
                 employmentType.toLowerCase() === selected.toLowerCase() ||
                 postingDate >= selected
