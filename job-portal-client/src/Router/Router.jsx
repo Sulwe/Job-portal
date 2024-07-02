@@ -3,6 +3,7 @@ import App from "../App";
 import Banner from "../components/Banner"
 import About from "../Pages/About";
 import Home from "../Pages/Home";
+import CreateJob from "../Pages/CreateJob";
 
 
 const router = createBrowserRouter([
@@ -13,8 +14,8 @@ const router = createBrowserRouter([
         {path: "/",
             element: <Home/>
         },
-        {path: "/about",
-            element: <About/>
+        {path: "/post-job",
+            element: <CreateJob/>
         }
       ]
     },
