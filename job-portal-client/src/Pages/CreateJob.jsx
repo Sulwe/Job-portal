@@ -8,7 +8,7 @@ const CreateJob = () => {
 
     const {
         register,
-        handleSubmit,
+        handleSubmit,reset,
         formState: { errors },
     } = useForm()
 
@@ -22,7 +22,11 @@ const CreateJob = () => {
         })
         .then(res => res.json())
         .then((result) => {
-            console.log(result)
+            console.log(result);
+            if (result.acknowledged === true) {
+                alert('Job Posted Successfully!')
+            }
+            reset()
         })
 
     };

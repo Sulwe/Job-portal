@@ -4,6 +4,7 @@ import Banner from "../components/Banner"
 import About from "../Pages/About";
 import Home from "../Pages/Home";
 import CreateJob from "../Pages/CreateJob";
+import MyJobs from "../Pages/MyJobs";
 
 
 const router = createBrowserRouter([
@@ -16,7 +17,10 @@ const router = createBrowserRouter([
         },
         {path: "/post-job",
             element: <CreateJob/>
-        }
+        },
+        {path: "/my-jobs",
+          element: <MyJobs/>
+        },
       ]
     },
   ]);
