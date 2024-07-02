@@ -8,6 +8,12 @@ const MyJobs = () => {
     const [searchText, setSearchText] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
+    // set current page
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 4;
+
+
     useEffect(() => {
         setIsLoading(true)
         fetch(`http://localhost:3000/myJobs/admin@loom.com`).then(res => res.json()).then(data => {
@@ -15,6 +21,26 @@ const MyJobs = () => {
             setIsLoading(false)
         })
     }, [searchText]);
+
+    // pagination
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentJobs = jobs.slice(indexOfFirstItem, indexOfLastItem)
+
+    // next btn & prev btn
+
+    const nextPage = () => {
+        if (indexOfLastItem < jobs.length) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+
+    const prevPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1)
+        }
+    }
 
     const handleSearch = () => {
         const filter = jobs.filter((job) => job.jobTitle.toLowerCase().indexOf(searchText.toLowerCase()) !== -1)
@@ -93,8 +119,8 @@ const MyJobs = () => {
                             isLoading ? (<div className='flex items-center justify-center h-20'><p>loading...</p></div>) : 
                             (
                                 <tbody>
-                            {
-                                jobs.map((job, index) => (
+                            
+                                {currentJobs.map((job, index) => (
                                     <tr key={index}>
                                         <th className="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left text-blueGray-700 ">
                                         {index + 1}
@@ -119,8 +145,7 @@ const MyJobs = () => {
                                         </td>
                                     </tr>
 
-                                ))
-                            }
+                                ))}
                         
                         </tbody>
 
@@ -132,17 +157,21 @@ const MyJobs = () => {
                     </div>
                 </div>
                 </div>
-                <footer className="relative pt-8 pb-6 mt-16">
-                <div className="container mx-auto px-4">
-                    <div className="flex flex-wrap items-center md:justify-between justify-center">
-                    <div className="w-full md:w-6/12 px-4 mx-auto text-center">
-                        <div className="text-sm text-blueGray-500 font-semibold py-1">
-                        Made with <a href="https://www.creative-tim.com/product/notus-js" className="text-blueGray-500 hover:text-gray-800" target="_blank">Notus JS</a> by <a href="https://www.creative-tim.com" className="text-blueGray-500 hover:text-blueGray-800" target="_blank"> Creative Tim</a>.
-                        </div>
-                    </div>
-                    </div>
+
+                {/* pagination */}
+                <div className='flex justify-center text-black space-x-8 mb-8'>
+                    {
+                        currentPage > 1 && (
+                            <button className='hover:underline' onClick={prevPage}>Previous</button>
+                        )
+                    }
+                    {
+                        indexOfLastItem < jobs.length && (
+                            <button className='hover:underline' onClick={nextPage}>Next</button>
+                        )
+                    }
                 </div>
-                </footer>
+
             </section>
 
         </div>
